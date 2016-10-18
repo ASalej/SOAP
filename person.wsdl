@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+             xmlns:tns="http://localhost:8001/person"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+             name="PersonSystemWSDL"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema xmlns:tns="http://schemas.xmlsoap.org/wsdl/"
+               xmlns="http://www.w3.org/2001/XMLSchema"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               elementFormDefault="qualified"
+               targetNamespace="http://localhost:8001/person">
+      <!-- General types -->
+      <complexType name="Response">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="status" type="boolean"/>
+          <element minOccurs="0" maxOccurs="1" name="message" type="string"/>
+          <element minOccurs="0" maxOccurs="1" name="id" type="decimal"/>
+        </sequence>
+      </complexType>
+
+      <!-- Person type -->
+      <complexType name="Person">
+        <sequence>
+          <element name="opener_id" type="integer" minOccurs="1" maxOccurs="1" />
+          <element name="name" type="string" minOccurs="1" maxOccurs="1" />
+          <element name="surname" type="string" minOccurs="1" maxOccurs="1" />
+        </sequence>
+      </complexType>
+      <complexType name="PersonList">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="persons" type="Person" />
+        </sequence>
+      </complexType>
+      <!-- Person methods input and output -->
+      <element name="AddPersonIn">
+        <element name="person" type="Person" minOccurs="1"/>
+      </element>
+      <element name="AddPersonOut">
+        <element name="status" type="Response" minOccurs="1"/>
+      </element>
+      <element name="GetPersonIn">
+        <element name="name" type="string" minOccurs="1"/>
+        <element name="surname" type="string" minOccurs="1"/>
+      </element>
+      <element name="GetPersonOut">
+        <element name="persons" type="PersonList" minOccurs="0" maxOccurs="1"/>
+        <element name="status" type="Response" minOccurs="1"/>
+      </element>
+      <element name="ChangePersonIn">
+        <element name="person" type="Person" minOccurs="1"/>
+      </element>
+      <element name="ChangePersonOut">
+        <element name="person" type="PersonList" minOccurs="0" maxOccurs="1"/>
+        <element name="status" type="Response" minOccurs="1"/>
+      </element>
+      <element name="DelPersonIn">
+        <element name="name" type="string" minOccurs="1"/>
+        <element name="surname" type="string" minOccurs="1"/>
+      </element>
+      <element name="DelPersonOut">
+        <element name="status" type="Response" minOccurs="1"/>
+      </element>
+    </xs:schema>
+  </types>
+
+  <!-- Сообщения процедуры addPerson -->
+  <message name="addPersonRequest">
+    <part name="Request" element="tns:AddPersonIn" />
+  </message>
+  <message name="addPersonResponse">
+    <part name="Response" element="tns:AddPersonOut" />
+  </message>
+
+  <!-- Сообщения процедуры getPerson -->
+  <message name="getPersonRequest">
+    <part name="Request" element="tns:GetPersonIn" />
+  </message>
+  <message name="getPersonResponse">
+    <part name="Response" element="tns:GetPersonOut" />
+  </message>
+
+  <!-- Сообщения процедуры changePerson -->
+  <message name="changePersonRequest">
+    <part name="Request" element="tns:ChangePersonIn" />
+  </message>
+  <message name="changePersonResponse">
+    <part name="Response" element="tns:ChangePersonOut" />
+  </message>
+
+  <!-- Сообщения процедуры delPerson -->
+  <message name="delPersonRequest">
+    <part name="Request" element="tns:DelPersonIn" />
+  </message>
+  <message name="delPersonResponse">
+    <part name="Response" element="tns:DelPersonOut" />
+  </message>
+
+
+  <!-- Привязка процедуры к сообщениям -->
+  <portType name="PersonPortType">
+    <operation name="addPerson">
+      <input message="tns:addPersonRequest" />
+      <output message="tns:addPersonResponse" />
+    </operation>
+    <operation name="getPerson">
+      <input message="tns:getPersonRequest" />
+      <output message="tns:getPersonResponse" />
+    </operation>
+    <operation name="changePerson">
+      <input message="tns:changePersonRequest" />
+      <output message="tns:changePersonResponse" />
+    </operation>
+    <operation name="delPerson">
+      <input message="tns:delPersonRequest" />
+      <output message="tns:delPersonResponse" />
+    </operation>
+  </portType>
+
+
+  <!-- Формат процедур веб-сервиса -->
+  <binding name="PersonBinding" type="tns:PersonPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="addPerson">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getPerson">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="changePerson">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="delPerson">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+
+
+  <!-- Определение сервиса -->
+  <service name="PersonService">
+    <port name="PersonPort" binding="tns:PersonBinding">
+      <soap:address location="http://localhost:8001/person" />
+    </port>
+  </service>
+</definitions>
