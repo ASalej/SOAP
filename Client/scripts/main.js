@@ -15,10 +15,9 @@ $(document).ready(function () {
     var getPlanetList = $('#getPlanetList');
 
     function soap (args, button, url) {
-        var temp = { button: ''};
         $.soap({
             url: url,
-            method: temp.keys().toString(),
+            method: button.attr('id'),
             data: args,
             success: function (soapResponse) {
                 console.log(soapResponse.toXML());
