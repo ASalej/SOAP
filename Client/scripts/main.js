@@ -19,9 +19,10 @@ $(document).ready(function () {
             url: url,
             method: button.attr('id'),
             data: args,
-            success: function (soapResponse) {
-                console.log(soapResponse.toXML());
-                button.next().html(soapResponse);
+            success: function (SOAPResponse) {
+                var res = $.xml2json($.parseXML(SOAPResponse.toString()));
+                console.log(JSON.stringify(res, null, '  '));
+                button.next().html(JSON.stringify(res, null, '  '));
                 button.next().addClass('alert alert-success');
             },
             error: function (SOAPResponse) {

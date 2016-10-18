@@ -42,6 +42,13 @@ a {
     border: 2px solid #ffd455;
 }
 
+.btn-primary:active, .btn-primary:hover, .btn-primary:focus, .btn-primary:active:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: #f9bf37;
+    border-color: #ffd64a;
+}
+
 .alert {
     margin-top: 5px;
     border-radius: 0;
